@@ -1,5 +1,7 @@
 # Sistema de Ranking de Jogadores
 
+- [Link da documentação no Postman ](https://documenter.getpostman.com/view/46440768/2sBY4VKccg)
+
 API REST desenvolvida como projeto para a disciplina, com o objetivo de aplicar estruturas de dados e algoritmos de busca e ordenação. O sistema permite cadastrar jogadores, gerar registros aleatórios, buscar por nome e ordenar o ranking por pontuação.
 
 ## Tecnologias

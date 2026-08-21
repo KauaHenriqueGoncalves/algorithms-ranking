@@ -8,7 +8,6 @@ import com.ranking.player.shared.sort.SortEnum;
 import com.ranking.player.shared.sort.SortStrategy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +15,7 @@ import java.util.Map;
 @RequestMapping("/ranking")
 public class RankingController {
     private final RankingService rankingService;
-    private final Map<String, SortStrategy<Player>> strategies;
+    private final Map<String, SortStrategy<Player>> strategies; // string -> bean name
 
     public RankingController(RankingService rankingService, Map<String, SortStrategy<Player>> strategies) {
         this.rankingService = rankingService;
@@ -56,7 +55,7 @@ public class RankingController {
     @GetMapping("/sort/{strategy}")
     public ResponseEntity<List<PlayerResponseDto>> sort(@PathVariable String strategy) {
         SortEnum sortEnum = SortEnum.of(strategy);
-        SortStrategy<Player> sortStrategy = this.strategies.get(sortEnum.getName());
+        SortStrategy<Player> sortStrategy = strategies.get(sortEnum.getName());
         List<Player> response = rankingService.sortByScore(sortStrategy);
         return ResponseEntity.ok(PlayerResponseDto.of(response));
     }

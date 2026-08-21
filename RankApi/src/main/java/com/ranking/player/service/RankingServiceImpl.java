@@ -6,7 +6,6 @@ import com.ranking.player.shared.exceptions.NotFoundException;
 import com.ranking.player.shared.sort.SortStrategy;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Random;
 
@@ -14,7 +13,6 @@ import java.util.Random;
 public class RankingServiceImpl implements RankingService {
     private final PlayerRepository repository;
     private final Random random = new Random();
-
     private static final String[] NAMES = {"Ana", "Bruno", "Carla", "Diego", "Elis", "Fabio", "Gabi", "Heitor", "Ines", "Joao", "Karen", "Lucas", "Marcia", "Nando"};
     private static final String[] CATEGORIES = {"Ouro", "Prata", "Bronze"};
 
@@ -25,7 +23,7 @@ public class RankingServiceImpl implements RankingService {
     @PostConstruct
     public void initialSeed() {
         if (repository.count() == 0) {
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 10; i++) {
                 this.generateRandom();
             }
         }

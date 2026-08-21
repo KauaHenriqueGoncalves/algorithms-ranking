@@ -2,7 +2,6 @@ package com.ranking.player.shared.sort;
 
 import com.ranking.player.model.Player;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 

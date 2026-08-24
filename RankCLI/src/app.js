@@ -1,6 +1,6 @@
 import * as p from "@clack/prompts";
 import logo from "./components/logo.js";
-import absoluteCinema from "./components/absoluteCinema.js"
+import absoluteCinema from "./components/absoluteCinema.js";
 import playersMenu from "./menus/players.js";
 
 async function main() {
@@ -8,9 +8,9 @@ async function main() {
     console.clear();
     logo();
     const option = await p.select({
-      message: "What do you want to do?",
+      message: "What gonna do, Mr Dear?",
       options: [
-        { value: "ranking", label: "Ranking" },
+        { value: "rank-api", label: "RankApi" },
         { value: "exit", label: "Exit" },
       ],
     });
@@ -22,7 +22,7 @@ async function main() {
       break;
     }
 
-    if (option === "ranking") {
+    if (option === "rank-api") {
       await playersMenu();
     }
   }

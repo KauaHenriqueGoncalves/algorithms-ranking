@@ -38,8 +38,22 @@ export async function getPlayerByName(nome) {
   return res.json();
 }
 
+export async function getStatistics() {
+  const res = await fetch(`${BASE_URL}/stats`, {
+    method: "GET",
+  });
+  return res.json();
+}
+
 export async function sort(type) {
   const res = await fetch(`${BASE_URL}/sort/${type}`, {
+    method: "GET",
+  });
+  return res.json();
+}
+
+export async function compareSortStrategies() {
+  const res = await fetch(`${BASE_URL}/sort/compare`, {
     method: "GET",
   });
   return res.json();

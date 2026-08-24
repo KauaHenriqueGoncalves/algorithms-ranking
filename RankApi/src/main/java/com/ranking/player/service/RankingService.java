@@ -1,8 +1,8 @@
 package com.ranking.player.service;
 
+import com.ranking.player.dto.SortResult;
 import com.ranking.player.model.Player;
 import com.ranking.player.shared.sort.SortStrategy;
-
 import java.util.List;
 
 public interface RankingService {
@@ -12,4 +12,6 @@ public interface RankingService {
     Player getByName(String name);
     Player create(String name, String category, int score);
     List<Player> sortByScore(SortStrategy<Player> sortStrategy);
+    SortResult sortByScoreWithMetrics(String strategyName, SortStrategy<Player> sortStrategy);
+    List<SortResult> compareAllStrategies();
 }

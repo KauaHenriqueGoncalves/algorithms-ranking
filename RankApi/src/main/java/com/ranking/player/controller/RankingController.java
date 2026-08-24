@@ -2,8 +2,11 @@ package com.ranking.player.controller;
 
 import com.ranking.player.dto.CreatePlayerDto;
 import com.ranking.player.dto.PlayerResponseDto;
+import com.ranking.player.dto.PlayerStats;
+import com.ranking.player.dto.SortResult;
 import com.ranking.player.model.Player;
 import com.ranking.player.service.RankingService;
+import com.ranking.player.service.StatisticsService;
 import com.ranking.player.shared.sort.SortEnum;
 import com.ranking.player.shared.sort.SortStrategy;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +18,14 @@ import java.util.Map;
 @RequestMapping("/ranking")
 public class RankingController {
     private final RankingService rankingService;
+    private final StatisticsService statisticsService;
     private final Map<String, SortStrategy<Player>> strategies; // string -> bean name
 
-    public RankingController(RankingService rankingService, Map<String, SortStrategy<Player>> strategies) {
+    public RankingController(RankingService rankingService,
+                             StatisticsService statisticsService,
+                             Map<String, SortStrategy<Player>> strategies) {
         this.rankingService = rankingService;
+        this.statisticsService = statisticsService;
         this.strategies = strategies;
     }
 
@@ -58,5 +65,22 @@ public class RankingController {
         SortStrategy<Player> sortStrategy = strategies.get(sortEnum.getName());
         List<Player> response = rankingService.sortByScore(sortStrategy);
         return ResponseEntity.ok(PlayerResponseDto.of(response));
+    }
+
+    @GetMapping("/sort/{strategy}/metrics")
+    public SortResult sortWithMetrics(@PathVariable String strategy) {
+        SortEnum sortEnum = SortEnum.of(strategy);
+        SortStrategy<Player> sortStrategy = strategies.get(sortEnum.getName());
+        return rankingService.sortByScoreWithMetrics(strategy, sortStrategy);
+    }
+
+    @GetMapping("/sort/compare")
+    public List<SortResult> compareAllStrategies() {
+        return rankingService.compareAllStrategies();
+    }
+
+    @GetMapping("/stats")
+    public ResponseEntity<PlayerStats> getStatistics() {
+        return ResponseEntity.ok(statisticsService.generate());
     }
 }
